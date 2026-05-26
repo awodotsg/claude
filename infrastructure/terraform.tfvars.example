@@ -1,6 +1,11 @@
-region          = "us-east-1"
-vpc_id          = "vpc-xxxxxxxxxxxxxxxxx"
-subnet_id       = "subnet-xxxxxxxxxxxxxxxxx"  # must route to internet (IGW or NAT GW)
-workspaces_cidr = "10.0.1.0/24"              # CIDR of the Workspaces subnet
-key_name        = "my-key-pair"              # existing key pair name (no .pem extension)
-instance_type   = "t3.medium"
+region        = "us-east-1"
+vpc_id        = "vpc-xxxxxxxxxxxxxxxxx"
+subnet_id     = "subnet-xxxxxxxxxxxxxxxxx"  # must route to internet (IGW or NAT GW)
+key_name      = "my-key-pair"              # existing key pair name (no .pem extension)
+instance_type = "t3.medium"
+
+# Public IPs allowed to SSH and reach NodePort 30080 — use /32 for single hosts
+allowed_cidrs = [
+  "203.0.113.10/32",  # AWS Workspaces public IP
+  "198.51.100.42/32", # home public IP
+]

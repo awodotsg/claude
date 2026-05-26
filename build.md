@@ -125,11 +125,21 @@ Copy-Item terraform.tfvars.example terraform.tfvars
 ```
 
 Edit `terraform.tfvars` and fill in:
-- `vpc_id`          — VPC shared with the Workspaces instance
-- `subnet_id`       — must have internet access (IGW or NAT GW) for k3s/Docker install
-- `workspaces_cidr` — CIDR of the Workspaces subnet (e.g. 10.0.1.0/24)
-- `key_name`        — existing EC2 key pair name
-- `region`          — AWS region (default: us-east-1)
+- `vpc_id`         — VPC in the testing account where the EC2 will be deployed
+- `subnet_id`      — must have internet access (IGW or NAT GW) for k3s/Docker install
+- `key_name`       — existing EC2 key pair name in the testing account
+- `region`         — AWS region (default: us-east-1)
+- `allowed_cidrs`  — list of public IPs (as /32) allowed to SSH and reach NodePort 30080;
+                     include the Workspaces public IP (production account) and your home IP:
+
+```hcl
+allowed_cidrs = [
+  "203.0.113.10/32",  # AWS Workspaces public IP
+  "198.51.100.42/32", # home public IP
+]
+```
+
+To find each IP: browse to https://checkip.amazonaws.com from that machine.
 
 ---
 

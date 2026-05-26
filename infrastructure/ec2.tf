@@ -4,11 +4,11 @@ resource "aws_security_group" "cityapp" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "SSH from Workspaces"
+    description = "SSH from allowed sources"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [var.workspaces_cidr]
+    cidr_blocks = var.allowed_cidrs
   }
 
   ingress {
@@ -16,7 +16,7 @@ resource "aws_security_group" "cityapp" {
     from_port   = 30080
     to_port     = 30080
     protocol    = "tcp"
-    cidr_blocks = [var.workspaces_cidr]
+    cidr_blocks = var.allowed_cidrs
   }
 
   egress {

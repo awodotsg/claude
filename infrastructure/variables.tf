@@ -14,9 +14,9 @@ variable "subnet_id" {
   type        = string
 }
 
-variable "workspaces_cidr" {
-  description = "CIDR block of the Workspaces subnet — granted SSH (22) and NodePort (30080) access"
-  type        = string
+variable "allowed_cidrs" {
+  description = "List of CIDR blocks granted SSH (22) and NodePort (30080) access — use /32 for single IPs"
+  type        = list(string)
 }
 
 variable "key_name" {
